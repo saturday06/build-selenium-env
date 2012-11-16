@@ -26,17 +26,21 @@ public class PlaygroundTestCase {
 	@After
 	public void tearDown() throws Exception {
 		if (wd != null) {
-			wd.close();
+			wd.quit();
 		}
 	}
 
 	@Test
 	public void test() throws MalformedURLException {
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
-		dc.setBrowserName("firefox");
+		// dc.setBrowserName("firefox");
+		// dc.setBrowserName("opera");
+		// dc.setBrowserName("chrome");
+		dc.setBrowserName("internet explorer");
 		wd = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dc);
 		wd.navigate().to("http://www.lunaport.net/");
 		wd.findElement(By.linkText("test")).click();
-		Assert.assertEquals("http://www.lunaport.net/test/", wd.getCurrentUrl());
+		Assert.assertTrue(wd.getCurrentUrl().startsWith(
+				"http://www.lunaport.net/test/"));
 	}
 }
