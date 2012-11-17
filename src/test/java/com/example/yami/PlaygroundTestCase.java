@@ -31,17 +31,19 @@ public class PlaygroundTestCase {
 
 	@Test
 	public void test() throws MalformedURLException {
-		String u = System.getenv("JENKINS_URL");
-		if (u == null) {
-			u = "http://127.0.0.1/";
+		String jenkinsURLString = System.getenv("JENKINS_URL");
+		if (jenkinsURLString == null) {
+			jenkinsURLString = "http://127.0.0.1/";
 		}
-		u += "wd/hub";
+		URL jenkinsURL = new URL(jenkinsURLString);
+		URL hubURL = new URL(jenkinsURL.getProtocol() + "://"
+				+ jenkinsURL.getHost() + ":4444/wd/hub");
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
-		// dc.setBrowserName("firefox");
+		dc.setBrowserName("firefox");
 		// dc.setBrowserName("opera");
 		// dc.setBrowserName("chrome");
-		dc.setBrowserName("internet explorer");
-		wd = new RemoteWebDriver(new URL(u), dc);
+		// dc.setBrowserName("internet explorer");
+		wd = new RemoteWebDriver(hubURL, dc);
 		wd.navigate().to("http://www.lunaport.net/");
 		wd.findElement(By.linkText("test")).click();
 		Assert.assertTrue(wd.getCurrentUrl().startsWith(
