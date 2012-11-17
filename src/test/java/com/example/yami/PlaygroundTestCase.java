@@ -38,6 +38,7 @@ public class PlaygroundTestCase {
 		URL jenkinsURL = new URL(jenkinsURLString);
 		URL hubURL = new URL(jenkinsURL.getProtocol() + "://"
 				+ jenkinsURL.getHost() + ":4444/wd/hub");
+		System.out.println("hubURL=" + hubURL);
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
 		dc.setBrowserName("firefox");
 		// dc.setBrowserName("opera");
