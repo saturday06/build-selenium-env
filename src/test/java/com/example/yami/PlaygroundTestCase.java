@@ -5,7 +5,6 @@ package com.example.yami;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map.Entry;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -41,20 +40,16 @@ public class PlaygroundTestCase {
 				+ jenkinsURL.getHost() + ":4444/wd/hub");
 		System.out.println("hubURL=" + hubURL);
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
-		for (Entry<String, String> entry : System.getenv().entrySet()) {
-			System.out.println("ENV: " + entry.getKey() + "="
-					+ entry.getValue());
-		}
-		for (Entry<Object, Object> entry : System.getProperties().entrySet()) {
-			System.out.println("SYS: " + entry.getKey() + "="
-					+ entry.getValue());
-		}
-		String browserName = System.getenv("SELENIUM_DESIRED_BROWSER_NAME");
+		String browserName = System
+				.getProperty("SELENIUM_DESIRED_BROWSER_NAME");
 		if (browserName == null) {
-			browserName = "firefox";
-			// browserName = "opera";
-			// browserName = "chrome";
-			// browserName = "internet explorer";
+			browserName = System.getenv("SELENIUM_DESIRED_BROWSER_NAME");
+			if (browserName == null) {
+				browserName = "firefox";
+				// browserName = "opera";
+				// browserName = "chrome";
+				// browserName = "internet explorer";
+			}
 		}
 		dc.setBrowserName(browserName);
 		wd = new RemoteWebDriver(hubURL, dc);
