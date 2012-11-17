@@ -42,7 +42,12 @@ public class PlaygroundTestCase {
 		System.out.println("hubURL=" + hubURL);
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
 		for (Entry<String, String> entry : System.getenv().entrySet()) {
-			System.out.println("  " + entry.getKey() + "=" + entry.getValue());
+			System.out.println("ENV: " + entry.getKey() + "="
+					+ entry.getValue());
+		}
+		for (Entry<Object, Object> entry : System.getProperties().entrySet()) {
+			System.out.println("SYS: " + entry.getKey() + "="
+					+ entry.getValue());
 		}
 		String browserName = System.getenv("SELENIUM_DESIRED_BROWSER_NAME");
 		if (browserName == null) {
