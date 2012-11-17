@@ -40,10 +40,14 @@ public class PlaygroundTestCase {
 				+ jenkinsURL.getHost() + ":4444/wd/hub");
 		System.out.println("hubURL=" + hubURL);
 		DesiredCapabilities dc = DesiredCapabilities.firefox();
-		dc.setBrowserName("firefox");
-		// dc.setBrowserName("opera");
-		// dc.setBrowserName("chrome");
-		// dc.setBrowserName("internet explorer");
+		String browserName = System.getenv("SELENIUM_DESIRED_BROWSER_NAME");
+		if (browserName == null) {
+			browserName = "firefox";
+			// browserName = "opera";
+			// browserName = "chrome";
+			// browserName = "internet explorer";
+		}
+		dc.setBrowserName(browserName);
 		wd = new RemoteWebDriver(hubURL, dc);
 		wd.navigate().to("http://www.lunaport.net/");
 		wd.findElement(By.linkText("test")).click();
